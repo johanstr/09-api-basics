@@ -18,6 +18,15 @@
 
 $cmd = '';
 
+// POST SIMULATIE
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+   // We simuleren hier het afhandelen van een POST-request
+   header('Content-Type: application/json');
+   header('HTTP/1.1 200 Ok');
+   echo json_encode($_POST);
+   die();
+}
+
 /**
  * We kijken eerst of er wel een querystring is met als eerste parameter cmd
  * Zo niet, dan bepalen we dat cmd=all is bedoeld

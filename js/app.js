@@ -4,6 +4,8 @@ let valuta_to_select = null;
 let valuta_from_input = null;
 let calc_output = null;
 let calc_button = null;
+let post_button = null;
+let test_data = null;
 
 /**
  * In de onderstaande variabele slaan we alle valuta gegevens op
@@ -23,9 +25,11 @@ window.onload = function () {
    valuta_from_input = document.querySelector('#valutaAmountFrom');
    calc_output = document.querySelector('#output');
    calc_button = document.querySelector('#calcButton');
+   post_button = document.querySelector('#postButton');
 
    // We koppelen een click event handler aan de button
    calc_button.addEventListener('click', calculate);
+   post_button.addEventListener('click', simulatePostRequest);
 
    
    // In deze functie worden alle valuta gegevens opgevraagd
@@ -117,3 +121,34 @@ function calculate(event)
 }
 
 
+function simulatePostRequest(event)
+{
+   event.preventDefault();
+
+   createNewCurrency();
+}
+
+async function createNewCurrency()
+{
+   let form = document.querySelector('form');
+   let formData = new FormData(form);
+
+   console.log('FORMDATA:');
+   console.log(formData);
+
+   formData.append('id', 1);
+   formData.append('abbr', 'CRED');
+   formData.append('description', 'POST Test JS');
+
+   await fetch('http://api-basics-currency.local/api/', {
+      method: 'POST',
+      body: formData
+   })
+      .then(response => response.json())
+      .then(data => {
+         test_data = data;
+         console.log(test_data);
+      })
+      .catch(error => console.error('API ERROR: ' + error));
+   
+}
