@@ -130,12 +130,8 @@ function simulatePostRequest(event)
 
 async function createNewCurrency()
 {
-   let form = document.querySelector('form');
-   let formData = new FormData(form);
-
-   console.log('FORMDATA:');
-   console.log(formData);
-
+   let formData = new FormData();
+   
    formData.append('id', 1);
    formData.append('abbr', 'CRED');
    formData.append('description', 'POST Test JS');
