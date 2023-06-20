@@ -1,6 +1,6 @@
 <?php
 
-@include_once('DBHelper.php');
+@include_once('Database.php');
 
 /**
  * getAllCurrencies
@@ -13,9 +13,8 @@
 function getAllCurrencies()
 {
    $sql = "SELECT * FROM `currency`";
-   $db = new DBHelper();
-   $db->query($sql);
-   $rows = $db->getRows();
+   Database::query($sql);
+   $rows = Database::getAll();
 
    header('Content-Type: application/json');
    echo json_encode($rows);
@@ -34,9 +33,9 @@ function getAllCurrencies()
 function getCurrency($currency)
 {
    $sql = "SELECT * FROM `currency` WHERE `abbr`=:abbr";
-   $db = new DBHelper();
-   $db->query($sql, [ ':abbr' => strtoupper($currency) ]);
-   $row = $db->getRow();
+   Database::query($sql, [':abbr' => strtoupper($currency)]);
+   
+   $row = Database::get();
 
    header('Content-Type: application/json');
    echo json_encode($row);
@@ -64,17 +63,15 @@ function calculateValue($value, $from_currency, $to_currency)
 
    // We stellen nu de SQL-statement samen om de gegevens van de twee
    // betrokken valuta binnen te halen uit de database
-   $db = new DBHelper();
-
    $sql = "SELECT * FROM `currency` WHERE `abbr`=:from";
-   $db->query($sql, [ ':from' => $from_currency ] );
+   Database::query($sql, [':from' => $from_currency]);
 
-   $row_from = $db->getRow();
+   $row_from = Database::get();
 
    $sql = "SELECT * FROM `currency` WHERE `abbr`=:to";
-   $db->query($sql, [':to' => $to_currency]);
+   Database::query($sql, [':to' => $to_currency]);
 
-   $row_to = $db->getRow();
+   $row_to = Database::get();
 
    // We gebruiken nu hulpvariabelen om tussen berekeningen te maken
    // En zetten daarbij het type van de waarde om van string naar float
