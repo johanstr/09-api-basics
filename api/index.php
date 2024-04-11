@@ -18,11 +18,18 @@
 
 $cmd = '';
 
-// POST SIMULATIE
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+/**
+ * We simuleren hieronder een POST-request
+ * Er wordt dus niet echt iets opgeslagen in de database
+ */
+if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
    // We simuleren hier het afhandelen van een POST-request
-   header('Content-Type: application/json');
    header('HTTP/1.1 200 Ok');
+   header('Content-Type: application/json');
+
+   // Hier zouden we iets kunnen doen met de data
+   // die we binnen krijgen
+
    echo json_encode($_POST);
    die();
 }

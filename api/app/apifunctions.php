@@ -12,7 +12,7 @@
  */
 function getAllCurrencies()
 {
-   $sql = "SELECT * FROM `currency`";
+   $sql = "SELECT * FROM `currency` LIMIT 3";
    Database::query($sql);
    $rows = Database::getAll();
 
