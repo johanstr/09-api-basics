@@ -11,7 +11,7 @@ class Database
 {
    // Database credentials
    private static $dbHost = '127.0.0.1';        // Voorkeur voor IP-adres, hoeft dan niet langs lokale DNS
-   private static $dbName = 'currency';
+   private static $dbName = 'currency-app';
    private static $dbUser = 'root';
    private static $dbPass = 'root';
 
